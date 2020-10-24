@@ -46,7 +46,7 @@ let greet name =
 // the following and sending it to FSI:
 // greet "World"
 // </F# QUICK-STARTER> 
-
+greet "World"
 // Two data files are included in the same place you
 // found this script: 
 // trainingsample.csv, a file that contains 5,000 examples, and 
@@ -70,8 +70,8 @@ open System.IO
 // returns an array of strings for each line 
  
 // [ YOUR CODE GOES HERE! ]
- 
- 
+let train = File.ReadAllLines("Dojo/trainingsample.csv")
+let validate = File.ReadAllLines("Dojo/validationsample.csv") 
 // 2. EXTRACTING COLUMNS
  
 // Break each line of the file into an array of string,
@@ -97,8 +97,10 @@ let lengths2 = strings |> Array.map (fun s -> s.Length)
 let csvToSplit = "1,2,3,4,5"
 let splitResult = csvToSplit.Split(',')
  
- 
+let trainStrings = train |> Array.map (fun s -> s.Split(','))
+let validateStrings = validate |> Array.map (fun s -> s.Split(','))
 // [ YOUR CODE GOES HERE! ]
+
  
  
 // 3. CLEANING UP HEADERS
@@ -118,7 +120,10 @@ let upToThree = someNumbers.[ .. 2 ]
 
 
 // [ YOUR CODE GOES HERE! ]
- 
+let trainStringsBare = trainStrings.[ 1 .. ]
+let validateStringsBare = validateStrings.[ 1 .. ]
+
+
  
 // 4. CONVERTING FROM STRINGS TO INTS
  
@@ -131,11 +136,13 @@ let upToThree = someNumbers.[ .. 2 ]
 let castedInt = (int)"42"
 // or, alternatively:
 let convertedInt = Convert.ToInt32("42")
- 
+
  
 // [ YOUR CODE GOES HERE! ]
- 
- 
+let trainInts = trainStringsBare |> Array.map(Array.map(Convert.ToInt32))
+let validateInts = validateStringsBare |> Array.map(Array.map(int))
+
+
 // 5. CONVERTING ARRAYS TO RECORDS
  
 // Rather than dealing with a raw array of ints,
@@ -149,7 +156,8 @@ type Example = { Label:int; Pixels:int[] }
 let example = { Label = 1; Pixels = [| 1; 2; 3; |] }
 // </F# QUICK-STARTER>
 
- 
+// TODO
+
 // [ YOUR CODE GOES HERE! ]
  
 // 5.1 VISUALISING THE DATA
